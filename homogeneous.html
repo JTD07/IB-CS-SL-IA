@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homogeneous Equilibrium</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Homogeneous Equilibrium</h1>
+        <nav><a href="index.html" class="back-to-home">Back to Home</a></nav>
+    </header>
+    <main>
+        <div class="input-container">
+            <label for="reaction-homogeneous">Reaction (e.g., H2 + I2 ⇌ 2HI):</label>
+            <input id="reaction-homogeneous" type="text" value="H2 + I2 ⇌ 2HI">
+            <label for="k-homogeneous">Equilibrium Constant (K):</label>
+            <input id="k-homogeneous" type="number" value="1" step="0.01" min="0.01">
+            <label for="concentration-homogeneous">Initial Concentrations (Reactants and Products in M):</label>
+            <input id="concentration-homogeneous" type="text" value="1, 1, 0">
+        </div>
+        <button onclick="calculateHomogeneousEquilibrium()">Calculate</button>
+        <p id="result-homogeneous">Result will be displayed here.</p>
+    </main>
+    <footer>
+        <p>&copy; 2025 Equilibrium Constant Simulator</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes up the full viewport height */
+}
+
+header {
+    background: #35424a;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+nav ul {
+    background: #35424a;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+nav ul li a.active {
+    background: #575d63;
+    border-bottom: 2px solid yellow;
+}
+
+nav ul li a:hover {
+    background: #575d63;
+}
+
+main {
+    flex: 1; /* Allow the main content to expand and push the footer down */
+    padding: 20px;
+    text-align: center;
+}
+
+canvas {
+    width: 800px; /* Adjust the width to make the chart smaller */
+    height: 500px; /* Adjust the height to make the chart smaller */
+    margin: 0 auto; /* Center the chart */
+}
+
+footer {
+    background: #35424a;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px 10px; /* Smaller padding for a smaller footer */
+    width: 100%;
+    font-size: 0.8em; /* Smaller text */
+    margin-top: auto; /* Push the footer to the bottom */
+}
+
+button {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.slider-container {
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column; /* Stack label and slider vertically */
+    align-items: center; /* Center items horizontally */
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 80%; /* Take up 80% of the screen width */
+    margin-left: auto;
+    margin-right: auto; /* Center the container horizontally */
+    white-space: nowrap; /* Prevent text from breaking into new lines */
+}
+
+.slider-container label {
+    margin-bottom: 10px; /* Add some space between label and slider */
+}
+
+.slider-container input[type="range"] {
+    width: 100%; /* Make the slider take the full width */
+    height: 25px; /* Adjust the height of the slider */
+}
+
+.input-container {
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column; /* Stack groups vertically */
+    align-items: flex-start; /* Align items to the left */
+    gap: 5px;
+    margin-bottom: 20px;
+    width: 50%; /* Take up 50% of the screen width */
+    margin-left: auto;
+    margin-right: auto; /* Center the container horizontally */
+    white-space: nowrap; /* Prevent text from breaking into new lines */
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column; /* Stack label and input vertically */
+    gap: 5px;
+    width: 100%; /* Make group take full width */
+}
+
+.input-group label {
+    text-align: left;
+}
+
+.input-group input {
+    width: auto;
+}
+
+.button-container {
+    display: flex !important;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+}
+
+.back-to-home {
+    color: #ffd700; /* Change the color to gold */
+    font-weight: bold; /* Make the link bold */
+}
+
+@media (max-width: 800px) {
+    .slider-container, .input-container {
+        width: 90%;
+        margin: 10px auto;
+        flex-direction: column; /* Stack items vertically on small screens */
+    }
+    canvas {
+        width: 800px; /* Adjust the width for smaller screens */
+        height: 500px; /* Adjust the height for smaller screens */
+    }
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}

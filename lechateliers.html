@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Chatelier's Principle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Le Chatelier's Principle</h1>
+        <nav><a href="index.html" class="back-to-home">Back to Home</a></nav>
+    </header>
+    <main>
+        <p>Explore how changing conditions like concentration, temperature, and pressure affect the equilibrium.</p>
+        <div class="lechateliers-container">
+            <label for="change-condition">Choose a change:</label>
+            <select id="change-condition">
+                <option value="add-reactant">Add Reactant</option>
+                <option value="remove-reactant">Remove Reactant</option>
+                <option value="add-product">Add Product</option>
+                <option value="remove-product">Remove Product</option>
+                <option value="increase-pressure">Increase Pressure</option>
+                <option value="decrease-pressure">Decrease Pressure</option>
+                <option value="increase-temperature">Increase Temperature</option>
+                <option value="decrease-temperature">Decrease Temperature</option>
+            </select>
+            <button onclick="applyLeChateliersPrinciple()">Apply Change</button>
+        </div>
+        <p id="lechateliers-output">Result will be displayed here.</p>
+    </main>
+    <footer>
+        <p>&copy; 2025 Equilibrium Constant Simulator</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

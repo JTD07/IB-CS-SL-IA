@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input a Reaction</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Input a Reaction</h1>
+        <nav><a href="index.html" class="back-to-home">Back to Home</a></nav>
+    </header>
+    <main>
+        <div class="input-container">
+            <div class="input-group">
+                <label for="reactants">Reactants (e.g., H2, I2):</label>
+                <input id="reactants" type="text" placeholder="H2, I2">
+            </div>
+            <div class="input-group">
+                <label for="reactants-coeff">Reactants Coefficients (e.g., 1, 1):</label>
+                <input id="reactants-coeff" type="text" placeholder="1, 1">
+            </div>
+            <div class="input-group">
+                <label for="reactants-conc">Reactants Concentrations (M):</label>
+                <input id="reactants-conc" type="text" placeholder="1, 1">
+            </div>
+            <div class="input-group">
+                <label for="products">Products (e.g., HI):</label>
+                <input id="products" type="text" placeholder="HI">
+            </div>
+            <div class="input-group">
+                <label for="products-coeff">Products Coefficients (e.g., 2):</label>
+                <input id="products-coeff" type="text" placeholder="2">
+            </div>
+            <div class="input-group">
+                <label for="products-conc">Products Concentrations (M):</label>
+                <input id="products-conc" type="text" placeholder="0.5">
+            </div>
+        </div>
+        <button onclick="calculateEquilibriumConstant()">Calculate K</button>
+        <p id="result-custom">Equilibrium Constant (K) will be displayed here.</p>
+    </main>
+    <footer>
+        <p>&copy; 2025 Equilibrium Constant Simulator</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
