@@ -6,19 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = canvas.getContext('2d');
         const kSlider = document.getElementById("k-slider");
         const kValue = document.getElementById("k-value");
-        const reactantInput = document.getElementById("reactant-input");
-        const productInput = document.getElementById("product-input");
+        const reactantInputA = document.getElementById("reactant-a-input");
+        const reactantInputB = document.getElementById("reactant-b-input");
+        const productInputC = document.getElementById("product-c-input");
+        const productInputD = document.getElementById("product-d-input");
 
         console.log('Initializing chart...');
 
         const chart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Reactants', 'Products'],
+                labels: ['A', 'B', 'C', 'D'],
                 datasets: [{
                     label: 'Concentration (M)',
-                    data: [1, 0],
-                    backgroundColor: ['blue', 'green']
+                    data: [1, 1, 0, 0],  // Initial concentrations of A, B, C, D
+                    backgroundColor: ['blue', 'orange', 'green', 'red']
                 }]
             },
             options: {
@@ -33,40 +35,83 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        function calculateConcentrations(K, initialReactants, initialProducts) {
-            console.log(`Calculating concentrations with K=${K}, Reactants=${initialReactants}, Products=${initialProducts}`);
-            const a = 1;
-            const b = K;
-            const c = -K * initialReactants;
-            const discriminant = b * b - 4 * a * c;
-
-            if (discriminant < 0) {
-                console.warn('No real solution for equilibrium concentrations. Returning initial values.');
-                return { reactant: initialReactants, product: initialProducts };
+        function calculateConcentrations(K, initialA, initialB, initialC, initialD) {
+            const a = 1, b = 1, c = 1, d = 1; // Stoichiometric coefficients
+            const A = initialA, B = initialB, C = initialC, D = initialD;
+           
+            //case when K=1
+            if (K === 1) {
+                const total1 = K*A*B-C*D;
+                const total2 = (K*A+K*B+C+D)
+                const x = total1 / total2;
+                return {
+                    Aeq: A - x,
+                    Beq: B - x,
+                    Ceq: C + x,
+                    Deq: D + x
+                };
             }
-
-            const equilibriumX = (-b + Math.sqrt(discriminant)) / (2 * a);
+            // Coefficients for the quadratic equation
+            const coeffA = K * a * b - c * d;
+            const coeffB = -(K * (A * b + B * a)) - (C * d + D * c);
+            const coeffC = K * A * B - C * D;
+       
+            // Solve the quadratic equation: Ax^2 + Bx + C = 0
+            const discriminant = Math.pow(coeffB, 2) - 4 * coeffA * coeffC;
+            console.log(discriminant);
+            if (discriminant < 0) {
+                console.error("No real solution exists for the given inputs.");
+                return null; // No valid equilibrium concentrations
+            }
+       
+            const sqrtDiscriminant = Math.sqrt(discriminant);
+            const x1 = (-coeffB + sqrtDiscriminant) / (2 * coeffA);
+            const x2 = (-coeffB - sqrtDiscriminant) / (2 * coeffA);
+       
+            // Choose the valid root (x must be non-negative and <= min(A/a, B/b))
+            const validX = [x1, x2].find(x => x >= 0 && x <= Math.min(A / a, B / b));
+       
+            if (validX === undefined) {
+                console.error("No valid solution for x within the constraints.");
+                return null;
+            }
+       
+            // Calculate equilibrium concentrations
             return {
-                reactant: initialReactants - equilibriumX,
-                product: initialProducts + equilibriumX
+                Aeq: A - a * validX,
+                Beq: B - b * validX,
+                Ceq: C + c * validX,
+                Deq: D + d * validX
             };
         }
-
+       
+        function getValidInputValue(elementId) {
+            const value = parseFloat(document.getElementById(elementId).value);
+            return isNaN(value) ? 0 : value;  // If NaN, return a default value (like 0)
+        }
         function updateChart() {
             const k = parseFloat(kSlider.value);
-            const initialReactants = parseFloat(reactantInput.value);
-            const initialProducts = parseFloat(productInput.value);
+            const initialA = getValidInputValue("reactant-a-input");
+            const initialB = getValidInputValue("reactant-b-input");
+            const initialC = getValidInputValue("product-c-input");
+            const initialD = getValidInputValue("product-d-input");
+           
             kValue.textContent = k.toFixed(2);
 
-            const concentrations = calculateConcentrations(k, initialReactants, initialProducts);
-            chart.data.datasets[0].data = [concentrations.reactant, concentrations.product];
-            chart.update();
+            // Get equilibrium concentrations
+            const concentrations = calculateConcentrations(k, initialA, initialB, initialC, initialD);
+           
+            chart.data.labels = ['A', 'B', 'C', 'D'];
+            chart.data.datasets[0].data = [concentrations.Aeq, concentrations.Beq, concentrations.Ceq, concentrations.Deq];
+            chart.update();  // Redraw the chart with updated values
         }
 
         window.resetChart = function () {
             kSlider.value = 1;
-            reactantInput.value = 1;
-            productInput.value = 0;
+            document.getElementById("reactant-a-input").value = 1;
+            document.getElementById("reactant-b-input").value = 1;
+            document.getElementById("product-c-input").value = 0;
+            document.getElementById("product-d-input").value = 0;
             updateChart();
         };
 
@@ -82,10 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
             kValue.textContent = kSlider.value;
         });
 
-        reactantInput.addEventListener("input", updateChart);
-        productInput.addEventListener("input", updateChart);
+        reactantInputA.addEventListener("input", updateChart);
+        reactantInputB.addEventListener("input", updateChart);
+        productInputC.addEventListener("input", updateChart);
+        productInputD.addEventListener("input", updateChart);
 
-        updateChart(); // Initialize the chart with default values
+        updateChart(); //Initialize the chart with default values
     } else {
         console.warn('Canvas element not found. Chart initialization skipped.');
     }
@@ -126,52 +173,22 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Le Chatelier output:', output.textContent);
     };
 
-    window.calculateHomogeneousEquilibrium = function () {
-        const reaction = document.getElementById("reaction-homogeneous").value;
-        const k = parseFloat(document.getElementById("k-homogeneous").value);
-        const concentrations = document.getElementById("concentration-homogeneous").value.split(',').map(Number);
-        const equilibriumReactants = concentrations[0] / (1 + k);
-        const equilibriumProducts = concentrations[1] / (1 + (1 / k));
-
-        const result = `Equilibrium concentrations for ${reaction} with K=${k}: Reactants = ${equilibriumReactants.toFixed(2)}, Products = ${equilibriumProducts.toFixed(2)}`;
-        document.getElementById("result-homogeneous").textContent = result;
-    };
-
-    window.calculateHeterogeneousEquilibrium = function () {
-        const reaction = document.getElementById("reaction-heterogeneous").value;
-        const k = parseFloat(document.getElementById("k-heterogeneous").value);
-        const concentrations = document.getElementById("concentration-heterogeneous").value.split(',').map(Number);
-        const equilibriumReactants = concentrations[0] * k;
-        const equilibriumProducts = concentrations[1] * k;
-
-        const result = `Equilibrium concentrations for ${reaction} with K=${k}: Reactants = ${equilibriumReactants.toFixed(2)}, Products = ${equilibriumProducts.toFixed(2)}`;
-        document.getElementById("result-heterogeneous").textContent = result;
-    };
-
-    window.calculateEquilibriumConstant = function () {
-        // Get the reactants and products data from inputs
-        const reactants = document.getElementById("reactants").value.split(",").map(item => item.trim());
-        const reactantsCoeff = document.getElementById("reactants-coeff").value.split(",").map(Number);
-        const reactantsConc = document.getElementById("reactants-conc").value.split(",").map(Number);
-        const products = document.getElementById("products").value.split(",").map(item => item.trim());
-        const productsCoeff = document.getElementById("products-coeff").value.split(",").map(Number);
-        const productsConc = document.getElementById("products-conc").value.split(",").map(Number);
-
-        // Calculate the equilibrium constant K
-        let productQuotient = 1;
-        let reactantQuotient = 1;
-
-        // Product Quotient: [Products]^coefficients
-        products.forEach((product, index) => {
-            productQuotient *= Math.pow(productsConc[index], productsCoeff[index]);
-        });
-
-        // Reactant Quotient: [Reactants]^coefficients
-        reactants.forEach((reactant, index) => {
-            reactantQuotient *= Math.pow(reactantsConc[index], reactantsCoeff[index]);
-        });
-
-        const equilibriumConstant = productQuotient / reactantQuotient;
-        document.getElementById("result-custom").textContent = `Equilibrium Constant (K) = ${equilibriumConstant.toFixed(4)}`;
+    
+    window.calculateEquilibriumConstant = function() {
+        let reactantA = parseFloat(document.getElementById('reactant-a').value);
+        let coefficientA = parseFloat(document.getElementById('coefficient-a').value);
+        let reactantB = parseFloat(document.getElementById('reactant-b').value);
+        let coefficientB = parseFloat(document.getElementById('coefficient-b').value);
+        let reactantC = parseFloat(document.getElementById('reactant-c').value);
+        let coefficientC = parseFloat(document.getElementById('coefficient-c').value);
+        let reactantD = parseFloat(document.getElementById('reactant-d').value);
+        let coefficientD = parseFloat(document.getElementById('coefficient-d').value);
+    
+        // Calculate the reaction quotient Q
+        let reactionQuotient = Math.pow(reactantC, coefficientC) * Math.pow(reactantD, coefficientD) /
+                        (Math.pow(reactantA, coefficientA) * Math.pow(reactantB, coefficientB));
+    
+        document.getElementById('result').innerText = `Reaction Quotient (Q) is ${reactionQuotient.toFixed(2)}`;
     }
+    
 });
