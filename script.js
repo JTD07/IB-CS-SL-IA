@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const reactantInputB = document.getElementById("reactant-b-input");
         const productInputC = document.getElementById("product-c-input");
         const productInputD = document.getElementById("product-d-input");
-
+        
         console.log('Initializing chart...');
 
         const chart = new Chart(ctx, {

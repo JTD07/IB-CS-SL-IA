@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equilibrium Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Equilibrium Particle Simulator</h1>
+        <nav><a href="index.html" class="back-to-home">Back to Home</a></nav>
+    </header>
+    <main>
+        <p>Adjust the sliders to see how the reactant quotient changes as the particles react.</p>
+        <div class="controls">
+            <label>Equilibrium Constant (Kc): 
+                <input type="number" id="kc" value="10" step="0.1">
+            </label>
+            <div class="slider">
+                <label>Reactant A: 
+                    <input type="range" id="reactantA" min="0" max="50" value="25">
+                </label>
+                <label>Reactant B: 
+                    <input type="range" id="reactantB" min="0" max="50" value="25">
+                </label>
+                <label>Product AB: 
+                    <input type="range" id="productAB" min="0" max="50" value="0">
+                </label>
+            </div>
+            <div>
+                <label>Reaction Speed: 
+                    <input type="range" id="reactionSpeed" min="1" max="10" value="5">
+                </label>
+            </div>
+        </div>
+        <div class="button">
+            <button id="start-simulation">Start</button>
+            <button id="stop-simulation">Stop</button>
+            <button id="reset-simulation">Reset</button>
+        </div>
+        <canvas id="visualization" width="600" height="400"></canvas>
+        <div id="chart">
+            <canvas id="chartCanvas" width="600" height="200"></canvas>
+            <div id="chart-labels">
+                <div class="y-label">Equilibrium Constant (Kc)</div>
+                <div class="x-label">Time</div>
+            </div>
+        </div>
+        <div id="equilibrium-calculation">
+            <p>K<sub>c</sub> = <span id="kc-formula">[AB]<sup>2</sup> / ([A] × [B])</span></p>
+            <p>Current Values: [A] = <span id="reactantA-value">25</span>, [B] = <span id="reactantB-value">25</span>, [AB] = <span id="productAB-value">0</span></p>
+            <p>Calculated K<sub>c</sub>: <span id="calculated-kc">0.00</span></p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Equilibrium Constant Simulator</p>
+    </footer>
+    <script src="simulator.js"></script>
+</body>
+</html>
