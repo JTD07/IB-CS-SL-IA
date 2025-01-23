@@ -114,10 +114,9 @@ function checkEquilibrium() {
     const kc = calculateEquilibrium();
     const targetKc = parseFloat(kcInput.value);
 
-    if (Math.abs(kc - targetKc) < 0.1 && !equilibriumReached) {
+    if (Math.abs(targetKc-kc) < 2 && !equilibriumReached) {
         equilibriumReached = true;
         equilibriumValue = kc; // Save the equilibrium value
-        document.body.style.backgroundColor = "lightgreen"; // Visual feedback
         alert('Equilibrium Reached!'); // Auditory feedback
     } else if (Math.abs(kc - targetKc) >= 0.1) {
         equilibriumReached = false;
@@ -285,18 +284,33 @@ function stopSimulation() {
 }
 
 function resetSimulation() {
-    stopSimulation();
-    particles = [];
-    dataPoints.length = 0;
-    equilibriumReached = false;
-    equilibriumValue = null;
-    updateParticles();
-    drawChart();
-    drawParticles();
+    stopSimulation(); // Stop any ongoing simulation
+    particles = []; // Clear all particles
+    dataPoints.length = 0; // Clear data points array
+    equilibriumReached = false; // Reset equilibrium state
+    equilibriumValue = null; // Clear equilibrium value
     time = 0; // Reset time for the chart
+
+    // Reset sliders to their initial values
+    reactantASlider.value = reactantASlider.defaultValue;
+    reactantBSlider.value = reactantBSlider.defaultValue;
+    productABSlider.value = productABSlider.defaultValue;
+    reactionSpeedSlider.value = reactionSpeedSlider.defaultValue;
+    kcInput.value = kcInput.defaultValue;
+
+    // Reset particle display and equilibrium values
+    updateParticles();
+    updateEquilibriumDisplay();
+
+    // Reset chart data
     chart.data.labels = [];
-    chart.data.datasets.forEach(dataset => dataset.data = []);
-    chart.update();
+    chart.data.datasets.forEach(dataset => {
+        dataset.data = [];
+    });
+    chart.update(); // Update the chart to reflect the reset state
+
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 reactantASlider.addEventListener("input", updateParticles);

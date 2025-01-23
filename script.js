@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (canvas) {
         const ctx = canvas.getContext('2d');
         const kSlider = document.getElementById("k-slider");
+        const kManualInput = document.getElementById("k-manual");
         const kValue = document.getElementById("k-value");
         const reactantInputA = document.getElementById("reactant-a-input");
         const reactantInputB = document.getElementById("reactant-b-input");
@@ -91,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         function updateChart() {
             const k = parseFloat(kSlider.value);
+
             const initialA = getValidInputValue("reactant-a-input");
             const initialB = getValidInputValue("reactant-b-input");
             const initialC = getValidInputValue("product-c-input");
@@ -106,8 +108,28 @@ document.addEventListener('DOMContentLoaded', () => {
             chart.update();  // Redraw the chart with updated values
         }
 
+        function syncKInputs(newKValue) {
+            kSlider.value = newKValue;
+            kManualInput.value = newKValue;
+            kValue.textContent = parseFloat(newKValue).toFixed(2);
+            updateChart();
+        }
+
+        kSlider.addEventListener("input", () => {
+            syncKInputs(kSlider.value);
+        });
+
+        kManualInput.addEventListener("input", () => {
+            const newK = parseFloat(kManualInput.value);
+            if (!isNaN(newK) && newK >= kSlider.min && newK <= kSlider.max) {
+                syncKInputs(newK);
+            } else {
+                kManualInput.value = kSlider.value;
+            }
+        });
+
         window.resetChart = function () {
-            kSlider.value = 1;
+            syncKInputs(1);
             document.getElementById("reactant-a-input").value = 1;
             document.getElementById("reactant-b-input").value = 1;
             document.getElementById("product-c-input").value = 0;
@@ -122,10 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
             link.click();
         };
 
-        kSlider.addEventListener("input", () => {
-            updateChart();
-            kValue.textContent = kSlider.value;
-        });
 
         reactantInputA.addEventListener("input", updateChart);
         reactantInputB.addEventListener("input", updateChart);
