@@ -36,7 +36,7 @@ This project was developed as part of my IB Computer Science SL Internal Assessm
 
 ## 🚀 How to Use
 
-1. Clone the repository or [view it online](https://yourusername.github.io/your-repo-name)
+1. Clone the repository or [view it online](https://jtd07.github.io/IB-CS-SL-IA/)
 2. Open `index.html` in your browser (or follow links to each tool)
 3. Use the navigation bar to access:
    - Equilibrium Calculator
