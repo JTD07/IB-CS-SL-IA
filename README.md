@@ -52,4 +52,10 @@ This project was developed as part of my IB Computer Science SL Internal Assessm
 - Allow for experimentation and self-guided learning through input and simulation.
 
 ## 📦 Project Structure
-
+/index.html → Main menu page
+/equilibrium.html → Equilibrium calculator interface
+/particle.html → Particle simulation
+/custom.html → Q vs. K calculator
+/lechateliers.html → Le Châtelier’s Principle overview
+/script.js → Core simulation logic
+/styles.css → Global styles
