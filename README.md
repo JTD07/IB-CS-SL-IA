@@ -53,10 +53,17 @@ This project was developed as part of my IB Computer Science SL Internal Assessm
 
 ## 📦 Project Structure
 📁 / (root) ├── index.html → Main menu page
+
 ├── equilibrium.html → Equilibrium calculator interface
+
 ├── particle.html → Particle simulation
+
 ├── custom.html → Reaction quotient calculator
+
 ├── lechateliers.html → Le Châtelier’s Principle overview
+
 ├── script.js → Core simulation logic
+
 ├── styles.css → Global stylesheet
+
 └── README.md → Project documentation
