@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaction Input</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Input Reaction Details</h1>
+        <nav><a href="index.html" class="back-to-home">Back to Home</a></nav>
+    </header>
+    <main>
+        <p>Input values for the concentrations of the reactants and products along with their quotients to get the reaction quotient for the reaction aA+bB⇌cC+dD </p>
+        <div class="input-container">
+            <div class="input-group">
+                <label for="reactant-a">Concentration of Reactant A:</label>
+                <input id="reactant-a" type="text" placeholder="Reactant A">
+                <label for="coefficient-a">Coefficient a:</label>
+                <input id="coefficient-a" type="number" placeholder="1">
+            </div>
+            <div class="input-group">
+                <label for="reactant-b">Concentration of Reactant B:</label>
+                <input id="reactant-b" type="text" placeholder="Reactant B">
+                <label for="coefficient-b">Coefficient b:</label>
+                <input id="coefficient-b" type="number" placeholder="1">
+            </div>
+            <div class="input-group">
+                <label for="reactant-c">Concentration of Product C:</label>
+                <input id="reactant-c" type="text" placeholder="Reactant C">
+                <label for="coefficient-c">Coefficient c:</label>
+                <input id="coefficient-c" type="number" placeholder="1">
+            </div>
+            <div class="input-group">
+                <label for="reactant-d">Concentration of Product D:</label>
+                <input id="reactant-d" type="text" placeholder="Reactant D">
+                <label for="coefficient-d">Coefficient d:</label>
+                <input id="coefficient-d" type="number" placeholder="1">
+            </div>
+        </div>
+        <button onclick="calculateEquilibriumConstant()">Calculate Equilibrium Constant</button>
+        <p id="result">Equilibrium Constant (K) will be displayed here.</p>
+    </main>
+    <footer>
+        <p>&copy; 2025 Reaction Simulator</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

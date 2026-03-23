@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Profile & Kinetics</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Energy Profile & Maxwell-Boltzmann</h1>
+        <nav><a href="index.html" class="back-to-home">Back to Home</a></nav>
+    </header>
+    <main>
+        <p>Understand how temperature and catalysts affect the rate of a reaction, and thus the time it takes to reach equilibrium.</p>
+        
+        <div class="input-container">
+            <div class="input-group">
+                <label for="temp-slider">Temperature (K): <span id="temp-val">300</span></label>
+                <input id="temp-slider" type="range" min="200" max="800" value="300" step="10">
+            </div>
+            <div class="input-group" style="align-items: center; flex-direction: row;">
+                <label for="catalyst-toggle" style="margin-right: 15px;">Use Catalyst:</label>
+                <input id="catalyst-toggle" type="checkbox" style="width: auto; transform: scale(1.5);">
+            </div>
+        </div>
+
+        <div class="dual-chart-container">
+            <div class="chart-wrapper card">
+                <h3>Reaction Coordinate (Energy Profile)</h3>
+                <canvas id="energyProfileChart" height="250"></canvas>
+            </div>
+            <div class="chart-wrapper card">
+                <h3>Maxwell-Boltzmann Distribution</h3>
+                <canvas id="maxwellChart" height="250"></canvas>
+            </div>
+        </div>
+        <div class="card">
+             <p id="analysis-text" style="font-weight: 600; text-align: center; color: var(--accent-blue);"></p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Equilibrium Constant Simulator</p>
+    </footer>
+    <script src="energy.js"></script>
+</body>
+</html>
